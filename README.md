@@ -1,6 +1,4 @@
 # Economy
-#EconomySim
-
 Simulator for economy and population development.
 
 ##Defininition of entities:
