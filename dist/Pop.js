@@ -1,5 +1,7 @@
 export class Pop {
     constructor() {
+        this._happiness = 80;
+        this._productivity = 1;
     }
     get money() {
         return this._money;
@@ -16,9 +18,6 @@ export class Pop {
     set chanceToLeaveWork(value) {
         this._chanceToLeaveWork = value;
     }
-    // set happiness(value:number){
-    //     this._happiness+=value;
-    // }
     set productivity(value) {
         this._productivity = value;
     }

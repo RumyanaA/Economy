@@ -1,19 +1,30 @@
 import { Market } from "./Market";
+import { UnemployedPop } from "./UnemployedPop";
 export class PopManager {
-    paySalaries(salaries, pop, quantityPop) {
+    paySalaries(salaries, pop, quantityPop, factory) {
         pop.recieveSalary(salaries);
-        this.managePop(quantityPop, pop);
+        this.managePop(quantityPop, pop, factory);
     }
-    managePop(quantityPop, pop) {
+    managePop(quantityPop, pop, factory) {
         let moneyLeft = this.fulfillBasicNeeds(quantityPop, pop);
         pop.money = moneyLeft;
         let popHappiness = this.manageHappiness(moneyLeft, pop);
         this.manageProductivity(popHappiness, pop);
+        let chanceToLeave = this.manageLeaveWorkDesicion(popHappiness, pop);
+        if (chanceToLeave != 0) {
+            let randomNum = Math.random() * 100;
+            if (randomNum < chanceToLeave) {
+                let unemployedPop = quantityPop / 2;
+                let remainingWorkers = quantityPop - unemployedPop;
+                factory.currentWorkers = remainingWorkers;
+                UnemployedPop.changeNumOfUnemployed(unemployedPop);
+            }
+        }
     }
     fulfillBasicNeeds(popQuantity, pop) {
         let popMoney = pop.money;
         let needs = new Map([
-            ["BREAD", popQuantity], ["CLOTHES", popQuantity], ["LUMBER", popQuantity]
+            ["BREAD", popQuantity], ["CLOTHES", popQuantity]
         ]);
         let moneyLeft = Market.buyResources(needs, popMoney);
         return moneyLeft;
@@ -40,8 +51,21 @@ export class PopManager {
         }
     }
     manageLeaveWorkDesicion(popHappiness, pop) {
+        let chanceToLeaveWork = 0;
         if (popHappiness < 30) {
-            let chanceToLeaveWork = 100 - (popHappiness + 20);
+            chanceToLeaveWork = 100 - (popHappiness + 20);
+            pop.chanceToLeaveWork = chanceToLeaveWork;
         }
+        else if (popHappiness > 30 && popHappiness < 60) {
+            chanceToLeaveWork = 10;
+            pop.chanceToLeaveWork = chanceToLeaveWork;
+        }
+        else {
+            pop.chanceToLeaveWork = chanceToLeaveWork;
+        }
+        return chanceToLeaveWork;
+    }
+    decreaseUnemployedHappiness(unemployed) {
+        unemployed.pop.modifyHappiness(-5);
     }
 }

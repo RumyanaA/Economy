@@ -1,9 +1,8 @@
 export class Pop{
-    private _happiness:number;
-    private _productivity:number;
+    private _happiness:number=80;
+    private _productivity:number=1;
     private _money:number;
     private _chanceToLeaveWork:number;
-    private _workplace
 
     get money():number{
         return this._money;
@@ -20,9 +19,6 @@ export class Pop{
     set chanceToLeaveWork(value:number){
         this._chanceToLeaveWork=value;
     }
-    // set happiness(value:number){
-    //     this._happiness+=value;
-    // }
 
     set productivity(value:number){
         this._productivity=value;
