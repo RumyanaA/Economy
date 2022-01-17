@@ -18,8 +18,8 @@ Population key properties:
 * Happiness:
 * * Happiness is in range between 0 and 100;
 * * range 60-100 no chance to leave current factory. //in future: possibility to promote to higher class of society
-* * range 30-60 means normal - no negative or positive effects
-* * range 1-30 decrease in productivity (defined in productivity section)
+* * range 30-60 means normal - no negative or positive effects -- 10% chance to leave work
+* * range 1-30 decrease in productivity (defined in productivity section) -- 50+% chance to leave work
 * * 0 happiness means the pop dies;
 * Productivity(related to happiness):
 * * If happiness is below 30, productivity is 0.5
@@ -55,6 +55,16 @@ Market key properties:
 * Price for each resource
 * Money
 
+
+### Starting resources:
+* Grain
+* Bread
+* Leather
+* Clothes
+
+#### Production chains:
+* Grain -> Bread, ration 2
+* Leather -> Clothes, ratio 3
 
 
 

@@ -1,16 +1,16 @@
 import { Market } from "./Market";
 export class PopManager {
-    paySalaries(salaries, pop, quantityPop) {
+    static paySalaries(salaries, pop, quantityPop) {
         pop.recieveSalary(salaries);
         this.managePop(quantityPop, pop);
     }
-    managePop(quantityPop, pop) {
+    static managePop(quantityPop, pop) {
         let moneyLeft = this.fulfillBasicNeeds(quantityPop, pop);
         pop.money = moneyLeft;
         let popHappiness = this.manageHappiness(moneyLeft, pop);
         this.manageProductivity(popHappiness, pop);
     }
-    fulfillBasicNeeds(popQuantity, pop) {
+    static fulfillBasicNeeds(popQuantity, pop) {
         let popMoney = pop.money;
         let needs = new Map([
             ["BREAD", popQuantity], ["CLOTHES", popQuantity], ["LUMBER", popQuantity]
@@ -18,7 +18,7 @@ export class PopManager {
         let moneyLeft = Market.buyResources(needs, popMoney);
         return moneyLeft;
     }
-    manageHappiness(moneyLeft, pop) {
+    static manageHappiness(moneyLeft, pop) {
         if (moneyLeft < 0) {
             pop.modifyHappiness(-5);
         }
@@ -28,7 +28,7 @@ export class PopManager {
         let popHappiness = pop.happiness;
         return popHappiness;
     }
-    manageProductivity(popHappiness, pop) {
+    static manageProductivity(popHappiness, pop) {
         if (popHappiness < 30) {
             pop.productivity = 0.5;
         }
@@ -39,7 +39,7 @@ export class PopManager {
             pop.productivity = 1;
         }
     }
-    manageLeaveWorkDesicion(popHappiness, pop) {
+    static manageLeaveWorkDesicion(popHappiness, pop) {
         if (popHappiness < 30) {
             let chanceToLeaveWork = 100 - (popHappiness + 20);
         }
