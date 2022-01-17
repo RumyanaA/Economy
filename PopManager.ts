@@ -4,12 +4,12 @@ import { UnemployedPop} from "./UnemployedPop";
 
 export class PopManager{
 
-    public paySalaries(salaries:number,pop:Pop,quantityPop:number,factory:Factory){
+    public static paySalaries(salaries:number,pop:Pop,quantityPop:number,factory:Factory){
         pop.recieveSalary(salaries);
         this.managePop(quantityPop,pop,factory);
         
     }
-    private managePop(quantityPop:number,pop:Pop,factory:Factory):void{
+    private static managePop(quantityPop:number,pop:Pop,factory:Factory):void{
         let moneyLeft:number = this.fulfillBasicNeeds(quantityPop,pop)
         pop.money=moneyLeft;
         let popHappiness:number = this.manageHappiness(moneyLeft,pop);
@@ -28,7 +28,7 @@ export class PopManager{
         
     }
 
-    private fulfillBasicNeeds(popQuantity:number,pop:Pop):number{
+    private static fulfillBasicNeeds(popQuantity:number,pop:Pop):number{
         let popMoney=pop.money;
         let needs=new Map<string,number>([
             ["BREAD",popQuantity],["CLOTHES",popQuantity]
@@ -36,7 +36,7 @@ export class PopManager{
         let moneyLeft = Market.buyResources(needs,popMoney);
         return moneyLeft;
     }
-    private manageHappiness(moneyLeft:number,pop:Pop){
+    private static manageHappiness(moneyLeft:number,pop:Pop){
         if(moneyLeft<0){
             pop.modifyHappiness(-5);
         }else if(moneyLeft>0){
@@ -45,7 +45,7 @@ export class PopManager{
         let popHappiness = pop.happiness;
         return popHappiness;
     }
-    private manageProductivity(popHappiness:number,pop:Pop):void{
+    private static manageProductivity(popHappiness:number,pop:Pop):void{
         if(popHappiness<30){
             pop.productivity=0.5;
         }else if(popHappiness>60){
@@ -54,7 +54,7 @@ export class PopManager{
             pop.productivity=1;
         }
     }
-    private manageLeaveWorkDesicion(popHappiness:number,pop:Pop):number{
+    private static manageLeaveWorkDesicion(popHappiness:number,pop:Pop):number{
         let chanceToLeaveWork:number=0;
         if(popHappiness<30){
             chanceToLeaveWork=100-(popHappiness+20);
@@ -67,7 +67,9 @@ export class PopManager{
         }
         return chanceToLeaveWork;
     }
-    public decreaseUnemployedHappiness(unemployed:UnemployedPop):void{
+    public static decreaseUnemployedHappiness(unemployed:UnemployedPop):void{
         unemployed.pop.modifyHappiness(-5);
     }
 }
+
+
