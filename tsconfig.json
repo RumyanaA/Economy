@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+        "watch":true,
+        "outDir": "dist",
+        "target":"ES6"
+    },
+    // "exclude":["./model.ts"]
+}
